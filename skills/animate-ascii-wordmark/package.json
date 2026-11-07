@@ -1,0 +1,14 @@
+{
+  "name": "@philspaces/animate-ascii-wordmark",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Transparent ASCII wordmarks with a terminal repair cursor.",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

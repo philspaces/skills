@@ -1,0 +1,4 @@
+interface:
+  display_name: "ASCII Repair Wordmark"
+  short_description: "Animate a transparent ASCII wordmark with an @ repair cursor"
+  default_prompt: "Use $animate-ascii-wordmark to animate \"Acme\" as a transparent ASCII wordmark."

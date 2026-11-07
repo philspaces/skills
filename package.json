@@ -1,0 +1,17 @@
+{
+  "name": "philspaces-skills",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "workspaces": [
+    "skills/*"
+  ],
+  "scripts": {
+    "check": "node scripts/check-skills.mjs",
+    "test": "node --test skills/*/tests/*.test.mjs",
+    "test:browser": "node skills/animate-ascii-wordmark/tests/browser.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
