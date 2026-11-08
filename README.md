@@ -34,7 +34,7 @@ Run it in your project and choose your agent when prompted. See the [skills CLI]
 
 | Skill | What to ask for |
 | --- | --- |
-| [animate-ascii-wordmark](skills/animate-ascii-wordmark/SKILL.md) | Animate a name as a transparent ASCII wordmark: an `@` cursor repairs wandering characters in a seamless loop. Includes web animation, light/dark GIFs, and static PNGs. |
+| [animate-ascii-wordmark](https://skills.sh/philspaces/skills/animate-ascii-wordmark) | Animate a name as a transparent ASCII wordmark: an `@` cursor repairs wandering characters in a seamless loop. Includes web animation, light/dark GIFs, and static PNGs. |
 
 The wordmark above was generated from “Skills”. Short names work best; the bundled fonts support Latin alphabets, including Vietnamese.
 
