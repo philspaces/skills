@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { validateText } from '../assets/wordmark.mjs';
 
 const help = `Generate a transparent, automatically looping ASCII wordmark.
-Usage: node scripts/generate.mjs --text "Acme" --out /path/to/new-output
+Usage: node scripts/generate.mjs --text "Skills" --out /path/to/new-output
 Options: --theme dark|light (dark), --seed 71339, --width 820, --help
 The output must be a new directory; existing work is never overwritten.`;
 try {

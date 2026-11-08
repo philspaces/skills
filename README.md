@@ -2,14 +2,14 @@
 
 Practical agent skills, each shipped as a self-contained folder under `skills/`.
 
-The first skill turns a name into a transparent ASCII repair animation. This example was generated from “Acme”:
+The first skill turns a name into a transparent ASCII repair animation. This example was generated from “Skills”:
 
 <picture>
-  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="examples/acme/media/wordmark-dark-static.png">
-  <source media="(prefers-reduced-motion: reduce)" srcset="examples/acme/media/wordmark-light-static.png">
-  <source media="(prefers-color-scheme: dark)" srcset="examples/acme/media/wordmark-dark.gif">
-  <source media="(prefers-color-scheme: light)" srcset="examples/acme/media/wordmark-light.gif">
-  <img alt="Acme, an animated ASCII wordmark example" src="examples/acme/media/wordmark-light-static.png" width="820">
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="examples/skills/media/wordmark-dark-static.png">
+  <source media="(prefers-reduced-motion: reduce)" srcset="examples/skills/media/wordmark-light-static.png">
+  <source media="(prefers-color-scheme: dark)" srcset="examples/skills/media/wordmark-dark.gif">
+  <source media="(prefers-color-scheme: light)" srcset="examples/skills/media/wordmark-light.gif">
+  <img alt="Skills, an animated ASCII wordmark example" src="examples/skills/media/wordmark-light-static.png" width="820">
 </picture>
 
 | Skill | What it makes |
@@ -40,7 +40,7 @@ For another agent, use its documented skill directory or provide the path to the
 
 Start a new agent session and ask:
 
-> Use $animate-ascii-wordmark to make an animated wordmark for “Acme”.
+> Use $animate-ascii-wordmark to make an animated wordmark for “Skills”.
 
 The text is enough to get started. The skill supplies the animation behavior and produces both dark and light exports by default. Short names work best; the bundled fonts cover Latin alphabets, including Vietnamese, digits, and punctuation. Text is limited to 40 characters.
 
@@ -57,14 +57,14 @@ A copied skill can install its own dependencies with `npm install` inside its fo
 
 ```bash
 cd skills/animate-ascii-wordmark
-node scripts/generate.mjs --text "Acme" --out /absolute/path/to/acme
-python3 -m http.server --directory /absolute/path/to/acme 8000
+node scripts/generate.mjs --text "Skills" --out /absolute/path/to/skills-wordmark
+python3 -m http.server --directory /absolute/path/to/skills-wordmark 8000
 ```
 
 Open `http://localhost:8000`. In another terminal, export the animation:
 
 ```bash
-node scripts/export.mjs --input /absolute/path/to/acme --out /absolute/path/to/acme/media
+node scripts/export.mjs --input /absolute/path/to/skills-wordmark --out /absolute/path/to/skills-wordmark/media
 ```
 
 The generated site is self-contained and uses no React. Export produces dark and light GIFs, static PNG fallbacks, and `export.json` with validation results. See the [skill instructions](skills/animate-ascii-wordmark/SKILL.md) for options and [integration reference](skills/animate-ascii-wordmark/references/integration.md) for website, React, and GitHub usage.

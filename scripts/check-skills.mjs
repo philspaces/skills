@@ -36,5 +36,5 @@ for (const path of await files(root)) {
     await access(resolve(dirname(path), link.split('#')[0]));
   }
 }
-for (const theme of ['dark', 'light']) for (const suffix of ['.gif', '-static.png']) await access(join(root, `examples/acme/media/wordmark-${theme}${suffix}`));
+for (const theme of ['dark', 'light']) for (const suffix of ['.gif', '-static.png']) await access(join(root, `examples/skills/media/wordmark-${theme}${suffix}`));
 console.log(`Checked ${count} skill(s), JavaScript syntax, Markdown links, and catalog example assets.`);

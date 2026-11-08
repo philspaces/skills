@@ -1,5 +1,5 @@
 {
-  "text": "Acme",
+  "text": "Skills",
   "seed": 71339,
   "fps": 25,
   "themes": {
@@ -7,35 +7,35 @@
       "gif": "wordmark-dark.gif",
       "staticPng": "wordmark-dark-static.png",
       "width": 820,
-      "height": 471,
-      "frames": 247,
-      "durationMs": 9880,
+      "height": 488,
+      "frames": 265,
+      "durationMs": 10600,
       "seamEqual": true,
       "transparent": true,
       "verifiedAlphaFrames": [
         0,
         1,
-        123,
-        246
+        132,
+        264
       ],
-      "bytes": 4072620
+      "bytes": 4581463
     },
     "light": {
       "gif": "wordmark-light.gif",
       "staticPng": "wordmark-light-static.png",
       "width": 820,
-      "height": 471,
-      "frames": 247,
-      "durationMs": 9880,
+      "height": 488,
+      "frames": 265,
+      "durationMs": 10600,
       "seamEqual": true,
       "transparent": true,
       "verifiedAlphaFrames": [
         0,
         1,
-        123,
-        246
+        132,
+        264
       ],
-      "bytes": 3780190
+      "bytes": 4441461
     }
   }
 }

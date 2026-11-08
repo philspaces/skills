@@ -15,8 +15,8 @@ The text is the only required creative input. Use the supplied text and choose a
 Run commands from this skill's directory. Use Node.js 22 or newer. If dependencies are missing, run `npm install` here, then `npx playwright install chromium`. GIF export requires `ffmpeg` on `PATH`.
 
 ```bash
-node scripts/generate.mjs --text "Acme" --out /absolute/path/to/acme
-node scripts/export.mjs --input /absolute/path/to/acme --out /absolute/path/to/acme/media
+node scripts/generate.mjs --text "Skills" --out /absolute/path/to/skills-wordmark
+node scripts/export.mjs --input /absolute/path/to/skills-wordmark --out /absolute/path/to/skills-wordmark/media
 ```
 
 Generation accepts `--seed 71339`, `--theme dark|light`, and `--width 820`. Export accepts `--theme dark|light|both`, `--width 820`, and `--max-seconds 90`; its default theme is `both`.
@@ -26,7 +26,7 @@ Generation and export each require a new output folder; choose fresh paths for r
 Serve the web preview locally instead of opening it with `file://`:
 
 ```bash
-python3 -m http.server --directory /absolute/path/to/acme 8000
+python3 -m http.server --directory /absolute/path/to/skills-wordmark 8000
 ```
 
 Inspect the browser render and exported images. Confirm readable text, a clean loop, transparent edges, and appropriate contrast on both backgrounds. If an export cannot finish, deliver the working artifacts and state which output remains unavailable.

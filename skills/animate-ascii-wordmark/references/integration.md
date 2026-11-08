@@ -4,7 +4,7 @@ Read this when placing a generated wordmark into a site, component, or README. T
 
 ## Standalone website
 
-Serve the generated folder as a static site. Its browser module and fonts are local; no React or external font service is required. Keep the canvas responsive with a stable aspect ratio and a transparent background. Give the wordmark an accessible text equivalent, such as `role="img"` and `aria-label="Acme"` on its canvas.
+Serve the generated folder as a static site. Its browser module and fonts are local; no React or external font service is required. Keep the canvas responsive with a stable aspect ratio and a transparent background. Give the wordmark an accessible text equivalent, such as `role="img"` and `aria-label="Skills"` on its canvas.
 
 When embedding only the animation, import the generated browser module and call:
 
@@ -12,7 +12,7 @@ When embedding only the animation, import the generated browser module and call:
 import { mountWordmark } from './assets/wordmark.mjs';
 
 const controller = await mountWordmark(canvas, {
-  text: 'Acme',
+  text: 'Skills',
   theme: 'dark',
   seed: 71339,
 });
@@ -65,7 +65,7 @@ Copy the exported media into the repository, for example under `assets/wordmark/
   <source media="(prefers-reduced-motion: reduce)" srcset="assets/wordmark/wordmark-light-static.png">
   <source media="(prefers-color-scheme: dark)" srcset="assets/wordmark/wordmark-dark.gif">
   <source media="(prefers-color-scheme: light)" srcset="assets/wordmark/wordmark-light.gif">
-  <img alt="Acme" src="assets/wordmark/wordmark-light-static.png" width="820">
+  <img alt="Skills" src="assets/wordmark/wordmark-light-static.png" width="820">
 </picture>
 ```
 
