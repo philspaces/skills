@@ -2,6 +2,8 @@
 
 This repository contains independently usable agent skills under `skills/<slug>/`. Read the affected skill's `SKILL.md` and the references relevant to your change before editing it.
 
+Keep the README focused on installing through an agent and asking it to perform a task. Keep manual installation brief; put runtime commands in the skill instructions and development details in CONTRIBUTING.md.
+
 Keep each skill self-contained: a copied folder must include the runtime, dependencies, assets, and notices needed for its workflow. Keep shared repository tooling small. Add future skills as sibling folders; do not introduce a framework, registry, or cross-skill dependency without a concrete requirement.
 
 Preserve public examples and reusable instructions. Do not include private project context, personal filesystem paths, credentials, or assets without an appropriate license. Keep font license notices with bundled and generated fonts.
