@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="drawio-system-design" version="1">
+  <diagram id="page-1" name="Current path and defect">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="850" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <object id="_title" label="Document worker: trace the failed read | Current path and defect&#10;as-is · Synthetic code/infra snapshot, not a live deployment&#10;Example only, not deployed · synthetic fixture v1">
+          <mxCell parent="1" style="text;html=0;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;whiteSpace=wrap;" vertex="1">
+            <mxGeometry x="24" y="12" width="1352" height="70" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="system" label="Example application · logical boundary, not a VPC" status="observed" evidence="E1, E2, E3">
+          <mxCell parent="1" style="swimlane;html=0;startSize=30;horizontal=1;rounded=0;fillColor=#F8FAFC;swimlaneFillColor=#F8FAFC;strokeColor=#334155;fontColor=#334155;fontSize=13;fontStyle=1;dashed=1;" vertex="1">
+            <mxGeometry x="260" y="130" width="1060" height="360" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="caller" label="Caller (not supplied) [unknown]" status="unknown" evidence="" reason="The fixture omits the invocation path.">
+          <mxCell parent="1" style="shape=umlActor;fillColor=#ffffff;strokeColor=#334155;html=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;fontColor=#B45309;fontSize=13;whiteSpace=wrap;spacingTop=6;labelWidth=180;" vertex="1">
+            <mxGeometry x="90" y="245" width="64" height="64" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="worker" label="AWS Lambda&#10;Document worker" status="observed" evidence="E1">
+          <mxCell parent="system" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;fillColor=#ED7100;strokeColor=#ffffff;html=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;fontColor=#334155;fontSize=13;whiteSpace=wrap;spacingTop=6;labelWidth=180;" vertex="1">
+            <mxGeometry x="90" y="120" width="64" height="64" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="storage" label="Amazon S3&#10;Documents" status="observed" evidence="E1">
+          <mxCell parent="system" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fillColor=#7AA116;strokeColor=#ffffff;html=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;fontColor=#334155;fontSize=13;whiteSpace=wrap;spacingTop=6;labelWidth=180;" vertex="1">
+            <mxGeometry x="760" y="120" width="64" height="64" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="logs" label="Amazon CloudWatch&#10;Log destination [inferred]" status="inferred" evidence="E2, E3" reason="Code logs and role allows logs; log group deployment is not inspected.">
+          <mxCell parent="system" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;fillColor=#E7157B;strokeColor=#ffffff;html=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;fontColor=#B45309;fontSize=13;whiteSpace=wrap;spacingTop=6;labelWidth=180;" vertex="1">
+            <mxGeometry x="420" y="220" width="64" height="64" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="invoke" label="Invocation not supplied [unknown]" mechanism="Unknown invocation path" identity="Unknown caller" status="unknown" evidence="" reason="No caller is included in this bounded fixture.">
+          <mxCell parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#B45309;fontColor=#B45309;fontSize=12;labelBackgroundColor=#ffffff;strokeWidth=2;dashed=1;" edge="1" source="caller" target="worker">
+            <mxGeometry relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="read" label="GetObject attempt → AccessDenied [F1: broken]" mechanism="AWS SDK / HTTPS S3 GetObject" identity="Lambda worker execution role" status="observed" evidence="E2, E3, E4">
+          <mxCell parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#B91C1C;fontColor=#B91C1C;fontSize=12;labelBackgroundColor=#ffffff;strokeWidth=2;dashed=1;" edge="1" source="worker" target="storage">
+            <mxGeometry relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="write-log" label="Log delivery [inferred]" mechanism="Lambda platform to CloudWatch Logs" identity="Lambda execution role" status="inferred" evidence="E2, E3" reason="Log intent is supported; delivery was not observed.">
+          <mxCell parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#B45309;fontColor=#B45309;fontSize=12;labelBackgroundColor=#ffffff;strokeWidth=2;dashed=1;" edge="1" source="worker" target="logs">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="470" y="282" />
+                <mxPoint x="470" y="405" />
+                <mxPoint x="650" y="405" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="F1" label="F1 · DEFECT: Explicit deny blocks document reads&#10;When: Worker reads an object in the configured bucket&#10;Impact: GetObject is denied; the handler cannot return the document." evidence="E2, E3, E4" targets="read">
+          <mxCell parent="1" style="rounded=1;html=0;whiteSpace=wrap;align=left;verticalAlign=top;spacing=12;fillColor=#FFF7ED;strokeColor=#B91C1C;fontColor=#B91C1C;fontSize=13;" vertex="1">
+            <mxGeometry x="300" y="550" width="960" height="140" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="_legend" label="LEGEND  Solid = source-supported (not live proof) · Dashed amber = inferred / unknown&#10;Blue = proposed · Red + finding ID = confirmed broken path&#10;Limits: Static fixture review only. Caller, actual deployment and log delivery unverified; no AWS calls were made.">
+          <mxCell parent="1" style="text;html=0;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=12;fontColor=#475569;" vertex="1">
+            <mxGeometry x="24" y="725" width="1352" height="110" as="geometry" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

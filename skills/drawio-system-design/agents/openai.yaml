@@ -1,0 +1,4 @@
+interface:
+  display_name: "Draw.io System Design"
+  short_description: "Diagram evidence-backed architecture and expose broken flows"
+  default_prompt: "Use $drawio-system-design to diagram this codebase and infrastructure, with service icons, source evidence, and clearly marked defects."

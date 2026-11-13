@@ -35,6 +35,19 @@ Run it in your project and choose your agent when prompted. See the [skills CLI]
 | Skill | What to ask for |
 | --- | --- |
 | [animate-ascii-wordmark](https://skills.sh/philspaces/skills/animate-ascii-wordmark) | Animate a name as a transparent ASCII wordmark: an `@` cursor repairs wandering characters in a seamless loop. Includes web animation, light/dark GIFs, and static PNGs. |
+| [drawio-system-design](skills/drawio-system-design/SKILL.md) | Build editable draw.io architecture diagrams from code and infrastructure, using service icons, traced flows, evidence and clearly marked defects. |
+
+To install the draw.io skill:
+
+```bash
+npx skills add philspaces/skills --skill drawio-system-design
+```
+
+This does not mean a skills.sh listing is already indexed; the catalog links to the local skill until a public listing is verified.
+
+For architecture work, ask your agent:
+
+> Install drawio-system-design from https://github.com/philspaces/skills, then diagram this codebase and infrastructure with service icons. Show evidenced defects and unresolved assumptions separately.
 
 The wordmark above was generated from “Skills”. Short names work best; the bundled fonts support Latin alphabets, including Vietnamese.
 

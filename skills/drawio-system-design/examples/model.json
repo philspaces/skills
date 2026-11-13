@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "title": "Document worker: trace the failed read",
+  "scope": "Intentionally flawed synthetic review fixture; no private project data",
+  "ref": "synthetic fixture v1",
+  "environment": "Example only, not deployed",
+  "limitations": "Static fixture review only. Caller, actual deployment and log delivery unverified; no AWS calls were made.",
+  "evidence": [
+    {
+      "id": "E1",
+      "kind": "infra",
+      "source": "fixture/main.tf",
+      "locator": "lines 2-4, 22-29; synthetic fixture v1",
+      "statement": "The example defines S3 storage and a Lambda function bound to the worker role."
+    },
+    {
+      "id": "E2",
+      "kind": "code",
+      "source": "fixture/handler.py",
+      "locator": "main, lines 5-7; synthetic fixture v1",
+      "statement": "The handler logs a message then attempts S3 GetObject using execution-role credentials."
+    },
+    {
+      "id": "E3",
+      "kind": "infra",
+      "source": "fixture/main.tf",
+      "locator": "worker policy, lines 12-20; synthetic fixture v1",
+      "statement": "The worker role explicitly denies s3:GetObject on objects in the target bucket and allows log writes."
+    },
+    {
+      "id": "E4",
+      "kind": "documentation",
+      "source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html",
+      "locator": "Policy evaluation logic; verify applicability against current docs",
+      "statement": "An applicable explicit deny overrides an allow. The agent must verify this contract when reviewing a real system."
+    }
+  ],
+  "pages": [
+    {
+      "name": "Current path and defect",
+      "view": "as-is",
+      "scope": "Synthetic code/infra snapshot, not a live deployment",
+      "width": 1400,
+      "height": 850,
+      "groups": [
+        {
+          "id": "system",
+          "label": "Example application \u00b7 logical boundary, not a VPC",
+          "kind": "module",
+          "x": 260,
+          "y": 130,
+          "w": 1060,
+          "h": 360,
+          "status": "observed",
+          "evidence": [
+            "E1",
+            "E2",
+            "E3"
+          ]
+        }
+      ],
+      "nodes": [
+        {
+          "id": "caller",
+          "label": "Caller (not supplied)",
+          "icon": "generic:actor",
+          "x": 90,
+          "y": 245,
+          "w": 64,
+          "h": 64,
+          "parent": null,
+          "status": "unknown",
+          "evidence": [],
+          "reason": "The fixture omits the invocation path."
+        },
+        {
+          "id": "worker",
+          "label": "AWS Lambda\nDocument worker",
+          "icon": "aws:lambda",
+          "x": 90,
+          "y": 120,
+          "w": 64,
+          "h": 64,
+          "parent": "system",
+          "status": "observed",
+          "evidence": [
+            "E1"
+          ]
+        },
+        {
+          "id": "storage",
+          "label": "Amazon S3\nDocuments",
+          "icon": "aws:s3",
+          "x": 760,
+          "y": 120,
+          "w": 64,
+          "h": 64,
+          "parent": "system",
+          "status": "observed",
+          "evidence": [
+            "E1"
+          ]
+        },
+        {
+          "id": "logs",
+          "label": "Amazon CloudWatch\nLog destination",
+          "icon": "aws:cloudwatch",
+          "x": 420,
+          "y": 220,
+          "w": 64,
+          "h": 64,
+          "parent": "system",
+          "status": "inferred",
+          "evidence": [
+            "E2",
+            "E3"
+          ],
+          "reason": "Code logs and role allows logs; log group deployment is not inspected."
+        }
+      ],
+      "edges": [
+        {
+          "id": "invoke",
+          "label": "Invocation not supplied",
+          "source": "caller",
+          "target": "worker",
+          "status": "unknown",
+          "evidence": [],
+          "reason": "No caller is included in this bounded fixture.",
+          "mechanism": "Unknown invocation path",
+          "identity": "Unknown caller"
+        },
+        {
+          "id": "read",
+          "label": "GetObject attempt \u2192 AccessDenied",
+          "source": "worker",
+          "target": "storage",
+          "status": "observed",
+          "evidence": [
+            "E2",
+            "E3",
+            "E4"
+          ],
+          "mechanism": "AWS SDK / HTTPS S3 GetObject",
+          "identity": "Lambda worker execution role"
+        },
+        {
+          "id": "write-log",
+          "label": "Log delivery",
+          "source": "worker",
+          "target": "logs",
+          "status": "inferred",
+          "evidence": [
+            "E2",
+            "E3"
+          ],
+          "reason": "Log intent is supported; delivery was not observed.",
+          "mechanism": "Lambda platform to CloudWatch Logs",
+          "identity": "Lambda execution role",
+          "points": [
+            {
+              "x": 470,
+              "y": 282
+            },
+            {
+              "x": 470,
+              "y": 405
+            },
+            {
+              "x": 650,
+              "y": 405
+            }
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "id": "F1",
+          "severity": "defect",
+          "title": "Explicit deny blocks document reads",
+          "targets": [
+            "read"
+          ],
+          "evidence": [
+            "E2",
+            "E3",
+            "E4"
+          ],
+          "condition": "Worker reads an object in the configured bucket",
+          "impact": "GetObject is denied; the handler cannot return the document.",
+          "constraint": "Applicable explicit IAM Deny overrides Allow for this principal/action/resource.",
+          "verify": "Inspect deployed role policies and bucket ARN; in an authorized test invoke with an existing key and inspect AccessDenied. No live test was run.",
+          "x": 300,
+          "y": 550,
+          "w": 960,
+          "h": 140
+        }
+      ]
+    }
+  ]
+}

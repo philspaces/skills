@@ -11,3 +11,8 @@ exports/
 .env
 .env.*
 !.env.example
+
+# Local editor settings and Python caches are not skill content.
+.idea/
+__pycache__/
+*.py[cod]

@@ -8,8 +8,9 @@
   ],
   "scripts": {
     "check": "node scripts/check-skills.mjs",
-    "test": "node --test skills/*/tests/*.test.mjs",
-    "test:browser": "node skills/animate-ascii-wordmark/tests/browser.mjs"
+    "test": "node scripts/test-skills.mjs",
+    "test:browser": "node scripts/test-skills.mjs browser",
+    "test:install": "node scripts/test-install.mjs"
   },
   "engines": {
     "node": ">=22"
